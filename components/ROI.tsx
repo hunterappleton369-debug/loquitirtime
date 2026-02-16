@@ -13,13 +13,13 @@ const RoiSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           
           {/* Main ROI Visual */}
-          <div className="lg:col-span-2 bg-navy-custom rounded-[3rem] p-12 text-left flex flex-col justify-center relative overflow-hidden group">
+          <div className="lg:col-span-2 bg-navy-custom rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 text-left flex flex-col justify-center relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-20 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/20 transition-colors duration-700"></div>
             
             <div className="relative z-10">
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="font-unbounded text-primary text-[8rem] font-bold leading-none mb-4 tracking-tighter"
+                className="font-unbounded text-primary text-6xl sm:text-[8rem] font-bold leading-none mb-4 tracking-tighter"
               >
                 13X
               </motion.div>

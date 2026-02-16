@@ -50,29 +50,40 @@ const Navbar: React.FC = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-12">
-            <button 
+            <button
               onClick={() => scrollToSection('loss')}
               className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-custom/60 hover:text-primary transition-colors hover:scale-105 transform duration-200"
             >
               The Problem
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('engine')}
               className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-custom/60 hover:text-primary transition-colors hover:scale-105 transform duration-200"
             >
               The Solution
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection('roi')}
               className="text-[10px] font-bold uppercase tracking-[0.2em] text-navy-custom/60 hover:text-primary transition-colors hover:scale-105 transform duration-200"
             >
               ROI
             </button>
-            
-            <Button 
-              variant="navy" 
+
+            <Button
+              variant="navy"
               className="!py-3 !px-6 text-[10px] uppercase tracking-[0.2em]"
-              onClick={() => scrollToSection('booking-form')} 
+              onClick={() => scrollToSection('booking-form')}
+            >
+              Book Free Audit
+            </Button>
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="md:hidden">
+            <Button
+              variant="navy"
+              className="!py-2.5 !px-5 text-[9px] uppercase tracking-[0.15em]"
+              onClick={() => scrollToSection('booking-form')}
             >
               Book Free Audit
             </Button>

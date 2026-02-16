@@ -1,9 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from './ui/Button';
 
+// Preload Cal.com embed script as early as possible
+function preloadCalScript() {
+  if ((window as any).__calScriptLoaded) return;
+  (window as any).__calScriptLoaded = true;
+
+  (function (C: any, A: string, L: string) {
+    let p = function (a: any, ar: any) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement("script")).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ["initNamespace", namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  const cal = (window as any).Cal;
+  cal("init", "30min", { origin: "https://app.cal.com" });
+}
+
 const BookingSection: React.FC = () => {
   const [step, setStep] = useState(1);
+  const calInitialized = useRef(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -19,6 +56,11 @@ const BookingSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Preload the Cal.com script on component mount so it's ready when step 2 loads
+  useEffect(() => {
+    preloadCalScript();
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -32,7 +74,7 @@ const BookingSection: React.FC = () => {
         }
 
         setIsSubmitting(true);
-        
+
         // Transform data for Webhook: Ensure decisionMaker is strictly "Yes" or "No"
         const payload = {
             ...formData,
@@ -58,14 +100,11 @@ const BookingSection: React.FC = () => {
   };
 
   useEffect(() => {
-    if (step === 2) {
-      // Initialize Cal.com embed
-      (function (C: any, A, L) { let p = function (a: any, ar: any) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-      
+    if (step === 2 && !calInitialized.current) {
+      calInitialized.current = true;
       const cal = (window as any).Cal;
-      cal("init", "30min", {origin:"https://app.cal.com"});
 
-      // Delay execution slightly to ensure DOM element is rendered by React/Framer Motion
+      // Delay slightly to ensure DOM element is rendered by React/Framer Motion
       const timer = setTimeout(() => {
           cal.ns["30min"]("inline", {
             elementOrSelector:"#my-cal-inline-30min",
@@ -86,55 +125,55 @@ const BookingSection: React.FC = () => {
             "hideEventTypeDetails":false,
             "layout":"week_view"
           });
-      }, 300);
+      }, 100);
 
       return () => clearTimeout(timer);
     }
   }, [step]);
 
   return (
-    <section className="py-24 bg-white relative" id="booking-form">
-      <div className="max-w-6xl mx-auto px-8">
-        <div className="text-center mb-16">
+    <section className="py-16 sm:py-24 bg-white relative" id="booking-form">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8">
+        <div className="text-center mb-10 sm:mb-16">
            <span className="text-primary font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">
               Application
             </span>
-          <h2 className="font-unbounded text-4xl md:text-5xl font-bold text-navy-custom mb-6">
+          <h2 className="font-unbounded text-3xl sm:text-4xl md:text-5xl font-bold text-navy-custom mb-6">
             Secure Your Strategy Session
           </h2>
-          <p className="text-navy-custom/60 max-w-2xl mx-auto">
+          <p className="text-navy-custom/60 max-w-2xl mx-auto text-sm sm:text-base">
             Fill out the details below to schedule your consultation. We only work with firms we are 100% confident we can help.
           </p>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] shadow-2xl border border-navy-custom/5 overflow-hidden flex flex-col md:flex-row min-h-[650px]">
-          
+        <div className="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-navy-custom/5 overflow-hidden flex flex-col md:flex-row min-h-[650px]">
+
           {/* Sidebar / Progress */}
-          <div className="bg-navy-custom p-10 md:w-1/3 text-white flex flex-col justify-between relative overflow-hidden">
+          <div className="bg-navy-custom p-6 sm:p-10 md:w-1/3 text-white flex flex-col justify-between relative overflow-hidden">
              <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-             
+
              <div className="relative z-10">
-                <div className="font-unbounded text-2xl font-bold mb-10">Loquitir</div>
-                
-                <div className="space-y-8">
-                    <div className={`flex items-center gap-4 transition-opacity duration-300 ${step === 1 ? 'opacity-100' : 'opacity-40'}`}>
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border ${step === 1 ? 'bg-primary border-primary text-white' : 'border-white/20 text-white/50'}`}>1</div>
+                <div className="font-unbounded text-2xl font-bold mb-6 sm:mb-10">Loquitir</div>
+
+                <div className="flex md:flex-col gap-6 sm:gap-8">
+                    <div className={`flex items-center gap-3 sm:gap-4 transition-opacity duration-300 ${step === 1 ? 'opacity-100' : 'opacity-40'}`}>
+                        <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold border shrink-0 ${step === 1 ? 'bg-primary border-primary text-white' : 'border-white/20 text-white/50'}`}>1</div>
                         <div>
                             <p className="font-bold text-sm">Firm Details</p>
-                            <p className="text-xs opacity-60">Qualification</p>
+                            <p className="text-xs opacity-60 hidden sm:block">Qualification</p>
                         </div>
                     </div>
-                    <div className={`flex items-center gap-4 transition-opacity duration-300 ${step === 2 ? 'opacity-100' : 'opacity-40'}`}>
-                         <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border ${step === 2 ? 'bg-primary border-primary text-white' : 'border-white/20 text-white/50'}`}>2</div>
+                    <div className={`flex items-center gap-3 sm:gap-4 transition-opacity duration-300 ${step === 2 ? 'opacity-100' : 'opacity-40'}`}>
+                         <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold border shrink-0 ${step === 2 ? 'bg-primary border-primary text-white' : 'border-white/20 text-white/50'}`}>2</div>
                         <div>
                             <p className="font-bold text-sm">Select Time</p>
-                            <p className="text-xs opacity-60">Calendar Sync</p>
+                            <p className="text-xs opacity-60 hidden sm:block">Calendar Sync</p>
                         </div>
                     </div>
                 </div>
              </div>
 
-             <div className="relative z-10 mt-auto">
+             <div className="relative z-10 mt-6 sm:mt-auto hidden md:block">
                  <div className="p-6 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm">
                     <span className="material-symbols-outlined text-primary mb-2">lock</span>
                     <p className="text-xs opacity-60 leading-relaxed">
@@ -145,7 +184,7 @@ const BookingSection: React.FC = () => {
           </div>
 
           {/* Form Area */}
-          <div className="p-8 md:p-12 md:w-2/3 bg-background-light relative">
+          <div className="p-5 sm:p-8 md:p-12 md:w-2/3 bg-background-light relative">
             <AnimatePresence mode="wait">
                 {step === 1 && (
                     <motion.div
@@ -156,12 +195,12 @@ const BookingSection: React.FC = () => {
                         transition={{ duration: 0.3 }}
                         className="h-full flex flex-col"
                     >
-                        <h3 className="font-unbounded text-2xl font-bold text-navy-custom mb-8">See if your firm qualifies</h3>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-6 sm:mb-8">See if your firm qualifies</h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">First Name</label>
-                                <input 
+                                <input
                                     name="firstName"
                                     value={formData.firstName}
                                     onChange={handleInputChange}
@@ -171,7 +210,7 @@ const BookingSection: React.FC = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Last Name</label>
-                                <input 
+                                <input
                                     name="lastName"
                                     value={formData.lastName}
                                     onChange={handleInputChange}
@@ -181,10 +220,10 @@ const BookingSection: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Email Address</label>
-                                <input 
+                                <input
                                     name="email"
                                     type="email"
                                     value={formData.email}
@@ -195,7 +234,7 @@ const BookingSection: React.FC = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Phone Number</label>
-                                <input 
+                                <input
                                     name="phone"
                                     type="tel"
                                     value={formData.phone}
@@ -206,10 +245,10 @@ const BookingSection: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Firm Name</label>
-                                <input 
+                                <input
                                     name="firm"
                                     value={formData.firm}
                                     onChange={handleInputChange}
@@ -219,7 +258,7 @@ const BookingSection: React.FC = () => {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Monthly Revenue</label>
-                                <input 
+                                <input
                                     name="revenue"
                                     value={formData.revenue}
                                     onChange={handleInputChange}
@@ -229,9 +268,9 @@ const BookingSection: React.FC = () => {
                             </div>
                         </div>
 
-                         <div className="mb-6 space-y-2">
+                         <div className="mb-4 sm:mb-6 space-y-2">
                             <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Are you a decision maker?</label>
-                            <select 
+                            <select
                                 name="decisionMaker"
                                 value={formData.decisionMaker}
                                 onChange={handleInputChange}
@@ -243,9 +282,9 @@ const BookingSection: React.FC = () => {
                             </select>
                         </div>
 
-                        <div className="space-y-2 mb-8">
+                        <div className="space-y-2 mb-6 sm:mb-8">
                              <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">Biggest Problem Managing Leads?</label>
-                             <textarea 
+                             <textarea
                                 name="problem"
                                 value={formData.problem}
                                 onChange={handleInputChange}
@@ -272,11 +311,11 @@ const BookingSection: React.FC = () => {
                         transition={{ duration: 0.3 }}
                         className="h-full flex flex-col"
                     >
-                         <h3 className="font-unbounded text-2xl font-bold text-navy-custom mb-2">Select a Time</h3>
+                         <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-2">Select a Time</h3>
                          <p className="text-xs font-bold text-navy-custom/40 uppercase tracking-widest mb-4">Book your strategy session below</p>
 
                          {/* Cal.com Embed Container */}
-                         <div className="flex-grow w-full h-full min-h-[500px] overflow-hidden rounded-xl bg-white relative">
+                         <div className="flex-grow w-full h-full min-h-[400px] sm:min-h-[500px] overflow-hidden rounded-xl bg-white relative">
                              <div style={{width:"100%", height:"100%", overflow:"scroll"}} id="my-cal-inline-30min"></div>
                          </div>
 

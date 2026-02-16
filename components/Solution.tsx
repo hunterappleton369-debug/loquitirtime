@@ -53,34 +53,34 @@ const SolutionSection: React.FC = () => {
           {/* Right Column (Pricing Card) */}
           <motion.div 
             whileHover={{ y: -5 }}
-            className="bg-navy-custom rounded-[3rem] p-10 text-white shadow-2xl relative overflow-hidden"
+            className="bg-navy-custom rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden"
           >
             <h3 className="font-unbounded text-2xl font-bold mb-8">Risk-Free Launch Protocol</h3>
             <ul className="space-y-6">
               {steps.map((step, idx) => (
                 <li key={idx} className="flex items-center justify-between border-b border-white/5 pb-4 group">
-                  <div className="flex items-center space-x-5">
-                    <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">
+                  <div className="flex items-center space-x-3 sm:space-x-5 min-w-0">
+                    <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform shrink-0">
                       {step.icon}
                     </span>
-                    <span className="font-medium text-lg">{step.title}</span>
+                    <span className="font-medium text-base sm:text-lg">{step.title}</span>
                   </div>
-                  <span className="text-white/40 text-sm group-hover:text-white/60 transition-colors">
+                  <span className="text-white/40 text-sm group-hover:text-white/60 transition-colors shrink-0 ml-2">
                     ({step.price})
                   </span>
                 </li>
               ))}
             </ul>
 
-            <div className="mt-10 bg-white/5 p-8 rounded-[2rem] border border-white/5 relative group">
+            <div className="mt-8 sm:mt-10 bg-white/5 p-5 sm:p-8 rounded-xl sm:rounded-[2rem] border border-white/5 relative group">
               <p className="text-primary font-bold uppercase tracking-widest text-[10px] mb-4">
                 Total Setup Cost
               </p>
-              <div className="flex items-center gap-6 mb-8">
-                <div className="text-3xl font-unbounded font-bold text-white/20 line-through tracking-tighter">
+              <div className="flex items-center gap-4 sm:gap-6 mb-8">
+                <div className="text-2xl sm:text-3xl font-unbounded font-bold text-white/20 line-through tracking-tighter">
                   $5,000
                 </div>
-                <div className="text-6xl font-unbounded font-bold text-white tracking-tighter group-hover:scale-110 transition-transform origin-left">
+                <div className="text-4xl sm:text-6xl font-unbounded font-bold text-white tracking-tighter group-hover:scale-110 transition-transform origin-left">
                   $0.00
                 </div>
               </div>

@@ -29,7 +29,7 @@ const ProblemSection: React.FC = () => {
           <div className="md:w-1/3">
              <Card className="h-full p-10 flex flex-col justify-between text-center relative z-10">
                 <div>
-                  <div className="font-unbounded text-5xl font-bold text-navy-custom mb-4">40%</div>
+                  <div className="font-unbounded text-4xl sm:text-5xl font-bold text-navy-custom mb-4">40%</div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">The Leak</p>
                   <p className="text-navy-custom/50 text-sm font-medium">Of Potential Clients Call After Hours</p>
                 </div>
@@ -45,7 +45,7 @@ const ProblemSection: React.FC = () => {
           <div className="md:w-1/3">
              <Card className="h-full p-10 flex flex-col justify-between text-center relative z-10">
                 <div>
-                  <div className="font-unbounded text-5xl font-bold text-navy-custom mb-4">80%</div>
+                  <div className="font-unbounded text-4xl sm:text-5xl font-bold text-navy-custom mb-4">80%</div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">The Loss</p>
                   <p className="text-navy-custom/50 text-sm font-medium">Immediately call a competitor</p>
                 </div>
@@ -65,7 +65,7 @@ const ProblemSection: React.FC = () => {
               className="relative z-10 bg-navy-custom p-10 rounded-[2.5rem] shadow-2xl h-full text-center text-white md:scale-105 flex flex-col justify-between"
             >
               <div>
-                <div className="font-unbounded text-5xl font-bold text-primary mb-4">$13k</div>
+                <div className="font-unbounded text-4xl sm:text-5xl font-bold text-primary mb-4">$13k</div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3">The Cost</p>
                 <p className="text-white/60 text-sm font-medium leading-relaxed">Average net fee lost per missed qualified case.</p>
               </div>

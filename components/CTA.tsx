@@ -15,7 +15,7 @@ const CTASection: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto px-8 relative z-10 text-center">
-          <h2 className="font-unbounded text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
+          <h2 className="font-unbounded text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
             Adapt or Be Replaced.
           </h2>
           <p className="text-xl md:text-2xl text-white/40 mb-12 font-light leading-relaxed text-balance">

@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
           <Button
             variant="primary"
             icon="arrow_forward"
-            className="text-xl px-20 py-7 rounded-2xl"
+            className="text-base sm:text-xl px-10 sm:px-20 py-5 sm:py-7 rounded-2xl"
             onClick={() => {
               const el = document.getElementById('booking-form');
               if (el) {

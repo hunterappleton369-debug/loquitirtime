@@ -41,6 +41,7 @@ function preloadCalScript() {
 const BookingSection: React.FC = () => {
   const [step, setStep] = useState(1);
   const calInitialized = useRef(false);
+  const [calReady, setCalReady] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -56,9 +57,37 @@ const BookingSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Preload the Cal.com script on component mount so it's ready when step 2 loads
+  // Eagerly load the Cal.com script AND initialize the widget on mount
+  // so the calendar is fully rendered by the time the user reaches step 2
   useEffect(() => {
     preloadCalScript();
+
+    if (calInitialized.current) return;
+    calInitialized.current = true;
+
+    const cal = (window as any).Cal;
+    // Small delay to let the hidden container render in the DOM
+    const timer = setTimeout(() => {
+      cal.ns["30min"]("inline", {
+        elementOrSelector: "#my-cal-inline-30min",
+        config: { layout: "week_view", useSlotsViewOnSmallScreen: "true" },
+        calLink: "hunter-appleton-a9ea1d/30min",
+      });
+
+      cal.ns["30min"]("ui", {
+        styles: { branding: { brandColor: "#0A1628" } },
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#0A1628" },
+          dark: { "cal-brand": "#c4a154" },
+        },
+        hideEventTypeDetails: false,
+        layout: "week_view",
+      });
+
+      setCalReady(true);
+    }, 150);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -98,38 +127,6 @@ const BookingSection: React.FC = () => {
     }
     setStep(step + 1);
   };
-
-  useEffect(() => {
-    if (step === 2 && !calInitialized.current) {
-      calInitialized.current = true;
-      const cal = (window as any).Cal;
-
-      // Delay slightly to ensure DOM element is rendered by React/Framer Motion
-      const timer = setTimeout(() => {
-          cal.ns["30min"]("inline", {
-            elementOrSelector:"#my-cal-inline-30min",
-            config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
-            calLink: "hunter-appleton-a9ea1d/30min",
-          });
-
-          cal.ns["30min"]("ui", {
-            "styles": {
-                "branding": {
-                    "brandColor": "#0A1628"
-                }
-            },
-            "cssVarsPerTheme":{
-                "light":{"cal-brand":"#0A1628"},
-                "dark":{"cal-brand":"#c4a154"}
-            },
-            "hideEventTypeDetails":false,
-            "layout":"week_view"
-          });
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, [step]);
 
   return (
     <section className="py-16 sm:py-24 bg-white relative" id="booking-form">
@@ -185,6 +182,32 @@ const BookingSection: React.FC = () => {
 
           {/* Form Area */}
           <div className="p-5 sm:p-8 md:p-12 md:w-2/3 bg-background-light relative">
+            {/* Cal.com widget - always in DOM, hidden behind step 1 so it loads eagerly */}
+            <div
+              className="h-full flex flex-col"
+              style={{ display: step === 2 ? undefined : 'none' }}
+            >
+              <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-2">Select a Time</h3>
+              <p className="text-xs font-bold text-navy-custom/40 uppercase tracking-widest mb-4">Book your strategy session below</p>
+
+              {/* Cal.com Embed Container */}
+              <div className="flex-grow w-full h-full min-h-[400px] sm:min-h-[500px] overflow-hidden rounded-xl bg-white relative">
+                <div style={{width:"100%", height:"100%", overflow:"scroll"}} id="my-cal-inline-30min"></div>
+                {!calReady && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"></div>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 flex justify-start">
+                <button onClick={() => setStep(1)} className="text-navy-custom/40 hover:text-navy-custom text-sm font-bold uppercase tracking-widest transition-colors">
+                    Back to Details
+                </button>
+              </div>
+            </div>
+
+            {/* Step 1 form - rendered on top, unmounts when on step 2 */}
             <AnimatePresence mode="wait">
                 {step === 1 && (
                     <motion.div
@@ -298,31 +321,6 @@ const BookingSection: React.FC = () => {
                             <Button onClick={nextStep} variant="primary" icon="arrow_forward" disabled={isSubmitting}>
                                 {isSubmitting ? 'Processing...' : 'Select Time'}
                             </Button>
-                        </div>
-                    </motion.div>
-                )}
-
-                {step === 2 && (
-                     <motion.div
-                        key="step2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                        className="h-full flex flex-col"
-                    >
-                         <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-2">Select a Time</h3>
-                         <p className="text-xs font-bold text-navy-custom/40 uppercase tracking-widest mb-4">Book your strategy session below</p>
-
-                         {/* Cal.com Embed Container */}
-                         <div className="flex-grow w-full h-full min-h-[400px] sm:min-h-[500px] overflow-hidden rounded-xl bg-white relative">
-                             <div style={{width:"100%", height:"100%", overflow:"scroll"}} id="my-cal-inline-30min"></div>
-                         </div>
-
-                         <div className="mt-4 flex justify-start">
-                            <button onClick={() => setStep(1)} className="text-navy-custom/40 hover:text-navy-custom text-sm font-bold uppercase tracking-widest transition-colors">
-                                Back to Details
-                            </button>
                         </div>
                     </motion.div>
                 )}

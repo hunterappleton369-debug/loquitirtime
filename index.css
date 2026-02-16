@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #c4a154;
+  --color-navy-custom: #0A1628;
+  --color-background-light: #fdfdfd;
+
+  --font-display: "Inter", sans-serif;
+  --font-unbounded: "Unbounded", cursive;
+
+  --animate-border-beam: border-beam calc(var(--duration) * 1s) infinite linear;
+
+  @keyframes border-beam {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+}
+
+.hero-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(196, 161, 84, 0.08) 0%,
+    rgba(253, 253, 253, 0) 70%
+  );
+}
+
+.text-balance {
+  text-wrap: balance;
+}

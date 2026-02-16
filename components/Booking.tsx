@@ -41,7 +41,6 @@ function preloadCalScript() {
 const BookingSection: React.FC = () => {
   const [step, setStep] = useState(1);
   const calInitialized = useRef(false);
-  const [calReady, setCalReady] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -70,21 +69,23 @@ const BookingSection: React.FC = () => {
     const timer = setTimeout(() => {
       cal.ns["30min"]("inline", {
         elementOrSelector: "#my-cal-inline-30min",
-        config: { layout: "week_view", useSlotsViewOnSmallScreen: "true" },
+        config: {
+          layout: "week_view",
+          useSlotsViewOnSmallScreen: "true",
+          theme: "light",
+        },
         calLink: "hunter-appleton-a9ea1d/30min",
       });
 
       cal.ns["30min"]("ui", {
+        theme: "light",
         styles: { branding: { brandColor: "#0A1628" } },
         cssVarsPerTheme: {
           light: { "cal-brand": "#0A1628" },
-          dark: { "cal-brand": "#c4a154" },
         },
         hideEventTypeDetails: false,
         layout: "week_view",
       });
-
-      setCalReady(true);
     }, 150);
 
     return () => clearTimeout(timer);
@@ -181,23 +182,23 @@ const BookingSection: React.FC = () => {
           </div>
 
           {/* Form Area */}
-          <div className="p-5 sm:p-8 md:p-12 md:w-2/3 bg-background-light relative">
-            {/* Cal.com widget - always in DOM, hidden behind step 1 so it loads eagerly */}
+          <div className="p-5 sm:p-8 md:p-12 md:w-2/3 bg-background-light relative overflow-hidden">
+            {/* Cal.com widget - always in DOM with real dimensions so iframe renders.
+                Uses opacity/pointer-events instead of display:none to avoid
+                breaking the Cal.com iframe dimension calculations. */}
             <div
-              className="h-full flex flex-col"
-              style={{ display: step === 2 ? undefined : 'none' }}
+              className="absolute inset-0 p-5 sm:p-8 md:p-12 flex flex-col transition-opacity duration-300"
+              style={{
+                opacity: step === 2 ? 1 : 0,
+                pointerEvents: step === 2 ? 'auto' : 'none',
+              }}
             >
               <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-2">Select a Time</h3>
               <p className="text-xs font-bold text-navy-custom/40 uppercase tracking-widest mb-4">Book your strategy session below</p>
 
               {/* Cal.com Embed Container */}
-              <div className="flex-grow w-full h-full min-h-[400px] sm:min-h-[500px] overflow-hidden rounded-xl bg-white relative">
-                <div style={{width:"100%", height:"100%", overflow:"scroll"}} id="my-cal-inline-30min"></div>
-                {!calReady && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"></div>
-                  </div>
-                )}
+              <div className="flex-grow w-full min-h-[400px] sm:min-h-[500px] overflow-hidden rounded-xl bg-white relative">
+                <div style={{width:"100%", height:"100%", overflow:"auto"}} id="my-cal-inline-30min"></div>
               </div>
 
               <div className="mt-4 flex justify-start">
@@ -207,7 +208,7 @@ const BookingSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Step 1 form - rendered on top, unmounts when on step 2 */}
+            {/* Step 1 form - overlays the cal widget, unmounts on step 2 to reveal it */}
             <AnimatePresence mode="wait">
                 {step === 1 && (
                     <motion.div
@@ -216,7 +217,7 @@ const BookingSection: React.FC = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.3 }}
-                        className="h-full flex flex-col"
+                        className="relative z-10 h-full flex flex-col"
                     >
                         <h3 className="font-unbounded text-xl sm:text-2xl font-bold text-navy-custom mb-6 sm:mb-8">See if your firm qualifies</h3>
 

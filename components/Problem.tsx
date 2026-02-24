@@ -27,7 +27,7 @@ const ProblemSection: React.FC = () => {
 
           {/* The Leak */}
           <div className="md:w-1/3">
-             <Card className="h-full p-10 flex flex-col justify-between text-center relative z-10">
+             <Card noHover className="h-full p-10 flex flex-col justify-between text-center relative z-10">
                 <div>
                   <div className="font-unbounded text-4xl sm:text-5xl font-bold text-navy-custom mb-4">40%</div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">The Leak</p>
@@ -43,7 +43,7 @@ const ProblemSection: React.FC = () => {
 
           {/* The Loss */}
           <div className="md:w-1/3">
-             <Card className="h-full p-10 flex flex-col justify-between text-center relative z-10">
+             <Card noHover className="h-full p-10 flex flex-col justify-between text-center relative z-10">
                 <div>
                   <div className="font-unbounded text-4xl sm:text-5xl font-bold text-navy-custom mb-4">80%</div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-3">The Loss</p>

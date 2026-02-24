@@ -70,18 +70,19 @@ const BookingSection: React.FC = () => {
     const timer = setTimeout(() => {
       cal.ns["30min"]("inline", {
         elementOrSelector: "#my-cal-inline-30min",
-        config: { layout: "week_view", useSlotsViewOnSmallScreen: "true" },
+        config: { layout: "month_view" },
         calLink: "hunter-appleton-a9ea1d/30min",
       });
 
       cal.ns["30min"]("ui", {
+        theme: "light",
         styles: { branding: { brandColor: "#0A1628" } },
         cssVarsPerTheme: {
           light: { "cal-brand": "#0A1628" },
           dark: { "cal-brand": "#c4a154" },
         },
         hideEventTypeDetails: false,
-        layout: "week_view",
+        layout: "month_view",
       });
 
       setCalReady(true);
@@ -139,7 +140,7 @@ const BookingSection: React.FC = () => {
             Secure Your Strategy Session
           </h2>
           <p className="text-navy-custom/60 max-w-2xl mx-auto text-sm sm:text-base">
-            Fill out the details below to schedule your consultation. We only work with firms we are 100% confident we can help.
+            Fill out the details below to help us prep for a brief 15 minute call where we'll help you understand how new AI tools can actually help find more profit with less stress. We only work with firms we're 100% confident we can help, but we'll aim to provide value either way.
           </p>
         </div>
 

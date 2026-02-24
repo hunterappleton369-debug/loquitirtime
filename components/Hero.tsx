@@ -103,7 +103,8 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-navy-custom/60 mb-12 max-w-4xl mx-auto font-light leading-relaxed text-balance"
         >
-          Most leads call after hours, causing valuable cases and significant revenue to slip through the cracks. We specialize in helping small PI firms capture every missed opportunity with premium, done-for-you 24/7 Voice AI solutions.
+          Most clients call after hours. If no one answers, you're handing the client to your competitor and flushing a $100 bill in ad spend down the drain.{' '}
+          Here's the good news: 56% of your competitors are unreachable by phone. There's a golden oppurtunity for innovative firms. AI isn't a replacement for your team, but we can help you win more clients, find your hidden profit, and reduce your team's stress with our done for you set up
         </motion.p>
 
         <motion.div

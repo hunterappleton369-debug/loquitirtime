@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 
 const SolutionSection: React.FC = () => {
   const features = [
-    { icon: "support_agent", title: "24/7 High Performance AI Receptionist" },
-    { icon: "calendar_month", title: "Automatic Appointment Assistant" },
-    { icon: "psychology", title: "Done For You by AI Experts" },
+    { icon: "handshake", title: "Sign more Clients, Win more Cases" },
+    { icon: "autorenew", title: "Automate Aggravating Tasks 24/7" },
+    { icon: "bolt", title: "Fast, Fully Custom Development, Testing, and Improvement" },
     { icon: "verified", title: "Free Until it Works Guarantee" },
   ];
 
@@ -28,7 +28,7 @@ const SolutionSection: React.FC = () => {
               The Solution
             </span>
             <h2 className="font-unbounded text-3xl md:text-5xl font-bold mb-8 leading-tight">
-              The 24/7 Done For You AI System Built to Add Revenue.
+              Profit Finding Done For You AI System
             </h2>
             <div className="space-y-4">
               {features.map((feature, idx) => (

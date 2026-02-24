@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="flex space-x-12 text-[10px] font-bold text-navy-custom/60 uppercase tracking-widest">
-            <a className="hover:text-primary transition-colors" href="mailto:hello@loquitir.com">Contact</a>
+            <a className="hover:text-primary transition-colors" href="mailto:hunter@loquitir.com">Contact</a>
           </div>
 
           <div className="text-[10px] text-navy-custom/30 font-bold tracking-widest uppercase">

@@ -13,15 +13,13 @@ const Footer: React.FC = () => {
               The Voice AI Standard for PI Law Firms
             </p>
           </div>
-          
+
           <div className="flex space-x-12 text-[10px] font-bold text-navy-custom/60 uppercase tracking-widest">
-            <a className="hover:text-primary transition-colors" href="#">Privacy</a>
-            <a className="hover:text-primary transition-colors" href="#">Terms</a>
-            <a className="hover:text-primary transition-colors" href="#">Contact</a>
+            <a className="hover:text-primary transition-colors" href="mailto:hello@loquitir.com">Contact</a>
           </div>
-          
+
           <div className="text-[10px] text-navy-custom/30 font-bold tracking-widest uppercase">
-            © 2025 LOQUITIR AI.
+            © 2026 LOQUITIR AI.
           </div>
         </div>
       </div>

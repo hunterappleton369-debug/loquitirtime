@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
           className="text-lg md:text-xl text-navy-custom/60 mb-12 max-w-4xl mx-auto font-light leading-relaxed text-balance"
         >
           Most clients call after hours. If no one answers, you're handing the client to your competitor and flushing a $100 bill in ad spend down the drain.{' '}
-          Here's the good news: 56% of your competitors are unreachable by phone. There's a golden oppurtunity for innovative firms. AI isn't a replacement for your team, but we can help you win more clients, find your hidden profit, and reduce your team's stress with our done for you set up
+          Here's the good news: 56% of your competitors are unreachable by phone. There's a golden opportunity for innovative firms. AI isn't a replacement for your team, but we can help you win more clients, find your hidden profit, and reduce your team's stress with our done for you set up
         </motion.p>
 
         <motion.div

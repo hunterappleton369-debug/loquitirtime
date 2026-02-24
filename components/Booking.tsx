@@ -70,17 +70,11 @@ const BookingSection: React.FC = () => {
     const timer = setTimeout(() => {
       cal.ns["30min"]("inline", {
         elementOrSelector: "#my-cal-inline-30min",
-        config: { layout: "month_view" },
-        calLink: "hunter-appleton-a9ea1d/30min",
+        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+        calLink: "loquitir/30min",
       });
 
       cal.ns["30min"]("ui", {
-        theme: "light",
-        styles: { branding: { brandColor: "#0A1628" } },
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#0A1628" },
-          dark: { "cal-brand": "#c4a154" },
-        },
         hideEventTypeDetails: false,
         layout: "month_view",
       });

@@ -42,6 +42,7 @@ const CTASection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex justify-center"
         >
           <Button
             onClick={scrollToForm}

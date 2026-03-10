@@ -50,9 +50,9 @@ const ProblemSection: React.FC = () => {
             {/* 80% Stat Card */}
             <div className="bg-background-light border border-navy-custom/5 rounded-3xl p-8 sm:p-10">
               <div className="font-unbounded text-5xl sm:text-6xl font-bold text-navy-custom mb-2">80%</div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-4">Immediately</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-4">of Potential Clients</p>
               <p className="text-navy-custom/50 text-sm sm:text-base font-light leading-relaxed">
-                Potential clients hang up and call a competitor if they don't have a live voice within 3 rings.
+                immediately hang up and call a competitor if their call is missed.
               </p>
             </div>
 

@@ -67,15 +67,37 @@ const BookingSection: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-10 sm:p-14 text-center"
+            className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-8 sm:p-12 md:p-14"
           >
-            <span className="material-symbols-outlined text-green-500 text-5xl mb-4">check_circle</span>
-            <h3 className="font-unbounded text-2xl font-bold text-navy-custom mb-3">
-              You're In!
-            </h3>
-            <p className="text-navy-custom/60 text-base">
-              We'll be in touch within 24 hours to start building your custom voice agent.
-            </p>
+            <div className="text-center mb-8 sm:mb-10">
+              <span className="material-symbols-outlined text-green-500 text-5xl mb-4">check_circle</span>
+              <h3 className="font-unbounded text-2xl sm:text-3xl font-bold text-navy-custom mb-3">
+                Congratulations on getting started.
+              </h3>
+              <p className="text-navy-custom/50 text-base sm:text-lg font-light">
+                Here's what to expect next:
+              </p>
+            </div>
+
+            <ol className="space-y-5 sm:space-y-6">
+              {[
+                "We'll build your custom demo agent from information on your Website/ Google My Business within 3 days",
+                "We'll stress-test it with 200 mock personal injury callers to catch edge cases and finalize the setup",
+                "A member of our team will reach out when it's ready",
+                "You can call it, test it, and request any changes",
+                "Once you approve it, we'll hook it up to your calendar for you",
+                "We'll launch it, and start booking missed clients as consults instead.",
+              ].map((step, idx) => (
+                <li key={idx} className="flex items-start gap-4">
+                  <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-unbounded text-sm font-bold flex items-center justify-center mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <p className="text-navy-custom/70 text-sm sm:text-base font-light leading-relaxed pt-1">
+                    {step}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </motion.div>
         ) : (
           <motion.form

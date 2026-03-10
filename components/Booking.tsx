@@ -65,17 +65,46 @@ const BookingSection: React.FC = () => {
 
         {isSubmitted ? (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-10 sm:p-14 text-center"
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-10 sm:p-14"
           >
-            <span className="material-symbols-outlined text-green-500 text-5xl mb-4">check_circle</span>
-            <h3 className="font-unbounded text-2xl font-bold text-navy-custom mb-3">
-              You're In!
-            </h3>
-            <p className="text-navy-custom/60 text-base">
-              We'll be in touch within 24 hours to start building your custom voice agent.
-            </p>
+            <div className="text-center mb-8">
+              <span className="material-symbols-outlined text-primary text-5xl mb-4">celebration</span>
+              <h3 className="font-unbounded text-2xl sm:text-3xl font-bold text-navy-custom mb-3">
+                Congratulations on Getting Started
+              </h3>
+              <p className="text-navy-custom/50 text-base font-light">
+                Here's what to expect next:
+              </p>
+            </div>
+
+            <div className="space-y-5">
+              {[
+                { icon: 'engineering', text: "We'll build your custom demo agent from information on your Website / Google My Business within 3 days" },
+                { icon: 'bug_report', text: "We'll stress-test it with 200 mock personal injury callers to catch edge cases and finalize the setup" },
+                { icon: 'call', text: 'A member of our team will reach out when it\'s ready' },
+                { icon: 'verified', text: 'You can call it, test it, and request any changes' },
+                { icon: 'calendar_month', text: "Once you approve it, we'll hook it up to your calendar for you" },
+                { icon: 'rocket_launch', text: "We'll launch it, and start booking missed clients as consults instead" },
+              ].map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + idx * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="bg-primary/10 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="material-symbols-outlined text-primary text-lg">{step.icon}</span>
+                  </div>
+                  <p className="text-navy-custom/70 text-sm sm:text-base font-light leading-relaxed pt-2">
+                    {step.text}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         ) : (
           <motion.form

@@ -14,6 +14,7 @@ const BookingSection: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,8 +23,18 @@ const BookingSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.fullName || !formData.email || !formData.phone) {
-      alert('Please fill in the required fields.');
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.website || !formData.afterHours || !formData.schedulingPlatform) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    if (!/^\d[\d\s()\-+]*$/.test(formData.phone)) {
+      alert('Please enter a valid phone number (numbers only).');
+      return;
+    }
+
+    if (!consentChecked) {
+      alert('Please agree to the marketing communications disclaimer before submitting.');
       return;
     }
 
@@ -164,15 +175,16 @@ const BookingSection: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-navy-custom/50">
-                  Website URL
+                  Website
                 </label>
                 <input
                   name="website"
-                  type="url"
+                  type="text"
                   value={formData.website}
                   onChange={handleInputChange}
                   className="w-full bg-background-light border border-navy-custom/10 rounded-xl px-4 py-3.5 text-navy-custom focus:border-primary focus:outline-none transition-colors font-medium placeholder:text-navy-custom/25"
-                  placeholder="https://yourfirm.com"
+                  placeholder="yourfirm.com"
+                  required
                 />
               </div>
             </div>
@@ -188,6 +200,7 @@ const BookingSection: React.FC = () => {
                 onChange={handleInputChange}
                 className="w-full bg-background-light border border-navy-custom/10 rounded-xl px-4 py-3.5 text-navy-custom focus:border-primary focus:outline-none transition-colors font-medium placeholder:text-navy-custom/25"
                 placeholder="e.g. Answering service, voicemail, no solution yet..."
+                required
               />
             </div>
 
@@ -202,7 +215,22 @@ const BookingSection: React.FC = () => {
                 onChange={handleInputChange}
                 className="w-full bg-background-light border border-navy-custom/10 rounded-xl px-4 py-3.5 text-navy-custom focus:border-primary focus:outline-none transition-colors font-medium placeholder:text-navy-custom/25"
                 placeholder="e.g. Calendly, Clio, MyCase, pen and paper..."
+                required
               />
+            </div>
+
+            {/* Consent Checkbox */}
+            <div className="flex items-start gap-3 mb-6 sm:mb-8">
+              <input
+                type="checkbox"
+                id="consent"
+                checked={consentChecked}
+                onChange={(e) => setConsentChecked(e.target.checked)}
+                className="mt-1 h-4 w-4 rounded border-navy-custom/20 text-primary focus:ring-primary cursor-pointer shrink-0"
+              />
+              <label htmlFor="consent" className="text-[11px] sm:text-xs text-navy-custom/40 leading-relaxed cursor-pointer">
+                By submitting this form, you consent to being contacted by members of our team via phone, email, or text message for marketing, promotional, and informational purposes. You may opt out at any time. Your information will not be shared with third parties.
+              </label>
             </div>
 
             {/* Submit */}

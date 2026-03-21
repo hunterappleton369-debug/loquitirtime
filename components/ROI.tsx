@@ -74,6 +74,21 @@ const RoiSection: React.FC = () => {
             </p>
           </div>
         </motion.div>
+
+        {/* Scarcity callout */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="max-w-4xl mx-auto mt-8"
+        >
+          <div className="text-center bg-primary/5 border border-primary/20 rounded-2xl p-5 sm:p-6">
+            <p className="text-navy-custom text-sm sm:text-base font-bold">
+              Please note: <span className="text-primary">We are only accepting 5 firms</span> due to operational capacity.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

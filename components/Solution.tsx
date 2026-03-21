@@ -42,13 +42,13 @@ const SolutionSection: React.FC = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="text-primary font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">
-            White Glove Implementation
+            How The Challenge Works
           </span>
           <h2 className="font-unbounded text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight text-navy-custom">
             3 Day Custom Launch Protocol.
           </h2>
           <p className="text-navy-custom/60 text-base sm:text-lg font-light leading-relaxed">
-            We don't just give you a tool. We build, test, and refine your custom AI agents 1-on-1 for your specific firm, saving your team months of effort and guesswork.
+            We don't just give you a tool. We build, test, and refine your custom AI receptionist 1-on-1 for your specific firm. Set up in 3 days, managed for 2 weeks.
           </p>
         </motion.div>
 
@@ -93,7 +93,7 @@ const SolutionSection: React.FC = () => {
             className="text-base sm:text-lg px-10 sm:px-14 py-5 rounded-2xl"
             onClick={scrollToForm}
           >
-            Get Your Free Custom Voice Agent
+            Apply for the 2 Week Challenge
           </Button>
         </motion.div>
       </div>

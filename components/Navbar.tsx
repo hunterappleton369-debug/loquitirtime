@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
             className="!py-3 !px-6 text-[11px] uppercase tracking-[0.1em]"
             onClick={scrollToForm}
           >
-            Get Your Free Custom Voice Agent
+            Apply for the 2 Week Challenge
           </Button>
         </div>
 
@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
             className="!py-2.5 !px-4 text-[9px] uppercase tracking-[0.1em]"
             onClick={scrollToForm}
           >
-            Get Free Agent
+            Apply Now
           </Button>
         </div>
       </div>

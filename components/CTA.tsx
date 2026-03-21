@@ -49,9 +49,19 @@ const CTASection: React.FC = () => {
             variant="primary"
             className="text-base sm:text-lg px-10 sm:px-14 py-5 rounded-2xl"
           >
-            Get Your Free Custom Voice Agent
+            Apply for the 2 Week Challenge
           </Button>
         </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-white/30 text-xs font-bold uppercase tracking-[0.15em] mt-6 text-center"
+        >
+          Only 5 spots remaining
+        </motion.p>
       </div>
     </section>
   );

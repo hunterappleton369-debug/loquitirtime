@@ -143,36 +143,18 @@ const Hero: React.FC = () => {
             {/* Gold Banner */}
             <div className="inline-block py-2 px-5 sm:px-6 rounded-full bg-primary text-white mb-5 shadow-lg">
               <span className="font-unbounded text-[8px] sm:text-[9px] md:text-[10px] font-medium uppercase tracking-[0.15em]">
-                Free 2-Week Find Missed Money Challenge
+                Free for 2 Weeks
               </span>
             </div>
 
             <h1 className="font-unbounded text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] mb-4 tracking-tight text-white text-balance">
-              Stop missing new clients.
-              <br />
-              <span className="text-primary italic">Boost Profitability. On Autopilot.</span>
-              <br />
-              Free Until You See Results.
+              We'll Show You How Many Clients You're Missing.{' '}
+              <span className="text-primary italic">For Free.</span>
             </h1>
 
-            <p className="text-sm sm:text-base text-white/50 mb-4 max-w-xl font-light leading-relaxed">
-              We want to earn your business through cold, hard results. We'll build a custom AI receptionist for your firm that shows you exactly how many clients you've been missing every week.
+            <p className="text-sm sm:text-base text-white/50 mb-5 max-w-xl font-medium leading-relaxed">
+              Custom AI receptionist. Built in 3 days. Managed for 2 weeks. You pay nothing.
             </p>
-
-            <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] sm:text-xs text-white/60 font-medium mb-5">
-              <span className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
-                Set up in under 3 days
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
-                Managed for 2 weeks
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
-                Completely free
-              </span>
-            </div>
 
             {/* Call to Test It Button */}
             <motion.a
@@ -185,9 +167,13 @@ const Hero: React.FC = () => {
               504-547-7749 — Call to Test It
             </motion.a>
 
-            <p className="text-[10px] sm:text-xs text-white/30 font-bold uppercase tracking-[0.15em]">
-              Only accepting 5 firms due to operational capacity
-            </p>
+            <motion.p
+              animate={{ opacity: [1, 0.6, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="text-lg sm:text-xl text-red-500 font-bold uppercase tracking-[0.15em]"
+            >
+              Only 5 Spots Left
+            </motion.p>
           </motion.div>
 
           {/* Right Column - Form */}

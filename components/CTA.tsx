@@ -58,9 +58,9 @@ const CTASection: React.FC = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-white/30 text-xs font-bold uppercase tracking-[0.15em] mt-6 text-center"
+          className="text-red-500 text-lg sm:text-xl font-bold uppercase tracking-[0.15em] mt-6 text-center"
         >
-          Only 5 spots remaining
+          Only 5 Spots Left
         </motion.p>
       </div>
     </section>

@@ -18,7 +18,7 @@ const ProblemSection: React.FC = () => {
               The Hidden Cost of Voicemail
             </h2>
             <p className="text-navy-custom/60 text-base sm:text-lg font-light leading-relaxed mb-4">
-              Look, I'm not mad you missed me! But I'm not a potential client with a neck brace and a wrecked Honda Civic who just got into an accident on her way home from work.
+              A potential client with a wrecked Honda Civic is calling someone else. Immediately. How often do you think this happens?
             </p>
             <p className="text-navy-custom/60 text-base sm:text-lg font-light leading-relaxed mb-4">
               Here's a frightening statistic: <span className="font-bold text-navy-custom">About forty percent of new clients call when you're closed. Eighty percent of whom leave no trace!</span> Instead, they hang up and dial the next firm on Google. $200+ in ad spend. Gone. Might as well mail a check to your competitor.

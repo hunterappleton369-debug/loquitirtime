@@ -55,11 +55,11 @@ const Hero: React.FC = () => {
     }
   };
 
-  const inputClasses = "w-full bg-background-light border border-navy-custom/10 rounded-xl px-4 py-3 text-sm text-navy-custom focus:border-primary focus:outline-none transition-colors font-medium placeholder:text-navy-custom/25";
+  const inputClasses = "w-full bg-background-light border border-navy-custom/10 rounded-xl px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-navy-custom focus:border-primary focus:outline-none transition-colors font-medium placeholder:text-navy-custom/25";
   const labelClasses = "text-[10px] font-bold uppercase tracking-widest text-navy-custom/50";
 
   return (
-    <section className="relative min-h-screen flex items-start pt-24 pb-10 overflow-hidden bg-navy-custom" id="booking-form">
+    <section className="relative min-h-0 lg:min-h-screen flex items-start pt-20 pb-8 sm:pt-24 sm:pb-10 overflow-hidden bg-navy-custom" id="booking-form">
       {/* Background Animated SVG Waves */}
       <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-30">
         <svg
@@ -132,28 +132,28 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-start">
           {/* Left Column - Copy */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="pt-2 lg:pt-6"
+            className="pt-0 lg:pt-6"
           >
             {/* Gold Banner */}
-            <div className="inline-block py-2 px-5 sm:px-6 rounded-full bg-primary text-white mb-5 shadow-lg">
+            <div className="inline-block py-2 px-5 sm:px-6 rounded-full bg-primary text-white mb-3 sm:mb-5 shadow-lg">
               <span className="font-unbounded text-[8px] sm:text-[9px] md:text-[10px] font-medium uppercase tracking-[0.15em]">
-                Free for 2 Weeks
+                Personal Injury Lawyers Who Miss Calls
               </span>
             </div>
 
-            <h1 className="font-unbounded text-2xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] mb-4 tracking-tight text-white text-balance">
+            <h1 className="font-unbounded text-xl sm:text-3xl lg:text-4xl font-bold leading-[1.15] mb-4 tracking-tight text-white text-balance">
               We'll Show You How Many Clients You're Missing.{' '}
               <span className="text-primary italic">For Free.</span>
             </h1>
 
             <p className="text-sm sm:text-base text-white/50 mb-5 max-w-xl font-medium leading-relaxed">
-              Custom AI receptionist. Built in 3 days. Managed for 2 weeks. You pay nothing.
+              Free 2-week challenge: we build your custom AI receptionist in 3 days, run it for 2 weeks, and show you every client you've been missing. You pay nothing.
             </p>
 
             {/* Call to Test It Button */}
@@ -161,7 +161,7 @@ const Hero: React.FC = () => {
               href="tel:5045477749"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 border-2 border-primary/60 text-primary rounded-2xl px-6 py-3 font-bold text-sm hover:bg-primary/10 transition-colors mb-5"
+              className="inline-flex items-center gap-2 border-2 border-primary/60 text-primary rounded-2xl px-6 py-3 font-bold text-sm hover:bg-primary/10 transition-colors mb-3 sm:mb-5"
             >
               <span className="material-symbols-outlined text-lg">call</span>
               504-547-7749 — Call to Test It
@@ -228,7 +228,7 @@ const Hero: React.FC = () => {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-5 sm:p-7"
+                className="bg-white rounded-3xl shadow-xl border border-navy-custom/5 p-4 sm:p-7"
               >
                 <h3 className="font-unbounded text-lg sm:text-xl font-bold text-navy-custom mb-1 text-center">
                   Apply for the 2 Week Challenge
